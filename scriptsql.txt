@@ -1,0 +1,44 @@
+create database if not exists gestao;
+use gestao;
+
+create table if not exists inquilinos
+	(
+		nome varchar(100) NOT NULL,
+        idade int NOT NULL,
+        sexo varchar(1) NOT NULL,
+        telefone varchar(20) NOT NULL,
+        email varchar(100) NOT NULL,
+        inq_id int PRIMARY KEY AUTO_INCREMENT
+	);
+    
+create table if not exists unidades
+	(
+		uni_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        proprietario varchar(100) NOT NULL,
+		condominio varchar(100) NOT NULL,
+        endereco varchar(100) NOT NULL
+	);	
+
+create table if not exists despesas
+	(
+		descricao varchar(100),
+        tipo_despesa varchar(100),
+        valor float, 
+        vencimento_fatura varchar(10),
+        status_pagamento varchar(100),
+        fk_uni_id int,
+        FOREIGN KEY (fk_uni_id) references unidades(uni_id),
+        des_id int PRIMARY KEY AUTO_INCREMENT
+	);
+    
+insert into inquilinos values ("Amanda", 23, "F","(53)99529-0463", "abcde@gmail.com", NULL),
+ ("Filipe", 18, "M","(29)99245-0123", "fghij@gmail.com", NULL),
+ ("Matheus", 44, "O", "(40)99234-1930", "mateorico@hotmail.com", NULL);
+
+insert into unidades values (NULL, "William", "Peixes Flutuantes", "Rua Quarenta e Três, 312"),
+(NULL, "Nicolas", "Mariposas Diurnas", "Rua Cinco, 253"),
+(NULL, "Zeca", "Estabelecimento", "Rua Mil Trezentos e Quarenta e Cinco, 543");
+
+insert into	despesas values("Luz", "Mensal", 129.4, "12/01/2022", "Não Pago", 2, NULL),
+("Água", "Anual", 1010.9, "20/02/2022", "Não Pago", 1, NULL),
+("Gás", "Mensal", 101.8, "24/01/2022", "Pago", 3, NULL);
